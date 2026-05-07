@@ -1,9 +1,9 @@
 // cloudflare-worker-contact.js
-// Deploy this as a Cloudflare Worker at workers.allmotiv.com
-// Requires a Resend API key in environment variable RESEND_API_KEY
+// Deploy as a Cloudflare Worker
+// Set RESEND_API_KEY in Worker environment variables
 
 export default {
-  async fetch(request) {
+  async fetch(request, env) {
     // Only accept POST
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
@@ -27,7 +27,7 @@ export default {
     }
 
     // Send via Resend
-    const resendKey = process.env.RESEND_API_KEY;
+    const resendKey = env.RESEND_API_KEY;
     if (!resendKey) {
       return formResponse('Server not configured – try again later.');
     }
@@ -69,7 +69,7 @@ ${message}
 };
 
 function formResponse(msg) {
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="4;url=/"><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#1B2A4A;color:white;text-align:center;padding:2rem;}p{font-size:1.2rem;}</style></head><body><p>${escapeHtml(msg)}<br><br><small>Redirecting back...</small></p></body></html>`;
+  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="4;url=/"><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#1B2A4A;color:white;text-align:center;padding:2rem;}p{font-size:1.2rem;}</style></head><body><p>${escapeHtml(msg)}<br><br><small>Redirecting back...</small></p></body></table></html>`;
   return new Response(html, {
     status: 200,
     headers: { 'Content-Type': 'text/html' },
