@@ -300,11 +300,11 @@
                 <p><strong>Phone:</strong> (810) 000-0000</p>
                 <p style="margin-top: 20px; font-size: 0.9rem;">Registered in Michigan. Quality-managed. Engineering-backed.</p>
             </div>
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks — we\'ll be in touch soon.');">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Email Address" required>
-                <input type="text" placeholder="Subject">
-                <textarea placeholder="Tell us about your project..."></textarea>
+            <form class="contact-form" action="https://contact.allmotiv.com" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="subject" placeholder="Subject">
+                <textarea name="message" placeholder="Tell us about your project..." required></textarea>
                 <button type="submit">Send Message</button>
             </form>
         </div>
