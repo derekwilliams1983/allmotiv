@@ -1,15 +1,14 @@
-// cloudflare-worker-contact.js
-// Deploy as a Cloudflare Worker
-// Set RESEND_API_KEY in Worker environment variables
-
 export default {
   async fetch(request, env) {
-    // Only accept POST
+    // Handle GET — redirect to site
+    if (request.method === 'GET') {
+      return Response.redirect('https://allmotiv.com', 302);
+    }
+
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
 
-    // Verify it's a form submission
     const contentType = request.headers.get('content-type') || '';
     if (!contentType.includes('application/x-www-form-urlencoded') && !contentType.includes('multipart/form-data')) {
       return new Response('Expected form data', { status: 400 });
@@ -21,18 +20,17 @@ export default {
     const subject = formData.get('subject') || 'Website Contact';
     const message = formData.get('message') || '';
 
-    // Simple validation
     if (!name || !email || !message) {
-      return formResponse('Please fill in name, email, and message.');
+      return Response.redirect('https://allmotiv.com?error=missing', 302);
     }
 
-    // Send via Resend
     const resendKey = env.RESEND_API_KEY;
     if (!resendKey) {
-      return formResponse('Server not configured – try again later.');
+      return Response.redirect('https://allmotiv.com?error=server', 302);
     }
 
-    const emailBody = `
+    // — Send notification to Derek —
+    const notifyBody = `
 New contact form submission from allmotiv.com
 
 Name:    ${name}
@@ -43,7 +41,7 @@ Message:
 ${message}
     `.trim();
 
-    const res = await fetch('https://api.resend.com/emails', {
+    const notifyRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${resendKey}`,
@@ -54,28 +52,49 @@ ${message}
         to: 'derekwilliams1983@gmail.com',
         reply_to: email,
         subject: `[AllMotiv] ${subject}`,
-        text: emailBody,
+        text: notifyBody,
       }),
     });
 
-    if (!res.ok) {
-      const err = await res.text();
-      console.error('Resend error:', err);
-      return formResponse('Message failed to send. Please email directly.');
+    if (!notifyRes.ok) {
+      return Response.redirect('https://allmotiv.com?error=send', 302);
     }
 
-    return formResponse('Thanks! We\'ll be in touch soon.');
+    // — Send auto-reply to customer —
+    const autoBody = `
+Hi ${name},
+
+Thanks for reaching out through allmotiv.com!
+
+We've received your message and will get back to you as soon as possible. We typically respond within 1-2 business days.
+
+Here's a summary of what you sent:
+---
+Subject: ${subject || '(none)'}
+${message}
+---
+
+If you need immediate assistance, feel free to call us at (810) 000-0000.
+
+Best regards,
+Derek
+AllMotiv LLC
+    `.trim();
+
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${resendKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'AllMotiv Contact <contact@allmotiv.com>',
+        to: email,
+        subject: `Thanks for contacting AllMotiv, ${name}!`,
+        text: autoBody,
+      }),
+    }).catch(() => {}); // Don't fail if auto-reply has issues
+
+    return Response.redirect('https://allmotiv.com?sent=ok', 302);
   },
 };
-
-function formResponse(msg) {
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="4;url=/"><style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;background:#1B2A4A;color:white;text-align:center;padding:2rem;}p{font-size:1.2rem;}</style></head><body><p>${escapeHtml(msg)}<br><br><small>Redirecting back...</small></p></body></table></html>`;
-  return new Response(html, {
-    status: 200,
-    headers: { 'Content-Type': 'text/html' },
-  });
-}
-
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}

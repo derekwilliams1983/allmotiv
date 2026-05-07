@@ -209,7 +209,45 @@
             .about-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
         }
-    </style>
+    /* — Success popup — */
+    .success-popup {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: #059669;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0,0,0,.15);
+        transform: translateY(-100%);
+        animation: slideDown 0.5s ease forwards;
+    }
+    .success-popup .sub {
+        font-weight: 400;
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-top: 4px;
+    }
+    @keyframes slideDown {
+        to { transform: translateY(0); }
+    }
+    .error-popup {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        background: #DC2626;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 999;
+        box-shadow: 0 4px 12px rgba(0,0,0,.15);
+        transform: translateY(-100%);
+        animation: slideDown 0.5s ease forwards;
+    }
+</style>
 </head>
 <body>
 
@@ -306,10 +344,41 @@
                 <input type="text" name="subject" placeholder="Subject">
                 <textarea name="message" placeholder="Tell us about your project..." required></textarea>
                 <button type="submit">Send Message</button>
+                <div class="form-status" style="display:none; padding:14px; border-radius:6px; margin-top:12px; font-weight:600;"></div>
             </form>
         </div>
     </div>
 </section>
+
+<!-- Popup on form submit -->
+<div id="popup"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const popup = document.getElementById('popup');
+
+function showBanner(type, msg, sub) {
+    const cls = type === 'ok' ? 'success-popup' : 'error-popup';
+    popup.innerHTML = `<div class="${cls}">${msg}${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
+    history.replaceState({}, '', '/');
+    setTimeout(() => {
+        const el = document.querySelector('.success-popup, .error-popup');
+        if (el) el.style.transform = 'translateY(-100%)';
+    }, 6000);
+}
+
+if (params.get('sent') === 'ok') {
+    showBanner('ok', '✓ Message sent! We\'ll get back to you soon.', 'Check your email for a confirmation');
+}
+if (params.get('error')) {
+    const msgs = {
+        'missing': 'Please fill in all fields.',
+        'server': 'Server error — try again later.',
+        'send': 'Message failed to send. Please email us directly at contact@allmotiv.com'
+    };
+    showBanner('error', '✗ ' + (msgs[params.get('error')] || 'Something went wrong.'));
+}
+</script>
 
 <footer>
     <div class="container">
