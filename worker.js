@@ -74,7 +74,7 @@ Subject: ${subject || '(none)'}
 ${message}
 ---
 
-If you need immediate assistance, feel free to call us at (810) 000-0000.
+If you need immediate assistance, feel free to call us at (810) 640-5875.
 
 Best regards,
 Derek
