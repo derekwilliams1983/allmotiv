@@ -1,6 +1,5 @@
 export default {
   async fetch(request, env) {
-    // Handle GET — redirect to site
     if (request.method === 'GET') {
       return Response.redirect('https://allmotiv.com', 302);
     }
@@ -9,27 +8,98 @@ export default {
       return new Response('Method not allowed', { status: 405 });
     }
 
+    const origin = request.headers.get('origin') || '';
+    if (
+      origin &&
+      origin !== 'https://allmotiv.com' &&
+      origin !== 'https://www.allmotiv.com'
+    ) {
+      return Response.redirect('https://allmotiv.com?error=blocked', 302);
+    }
+
     const contentType = request.headers.get('content-type') || '';
-    if (!contentType.includes('application/x-www-form-urlencoded') && !contentType.includes('multipart/form-data')) {
+    if (
+      !contentType.includes('application/x-www-form-urlencoded') &&
+      !contentType.includes('multipart/form-data')
+    ) {
       return new Response('Expected form data', { status: 400 });
     }
 
     const formData = await request.formData();
-    const name = formData.get('name') || '';
-    const email = formData.get('email') || '';
-    const subject = formData.get('subject') || 'Website Contact';
-    const message = formData.get('message') || '';
 
-    if (!name || !email || !message) {
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const subject = String(
+      formData.get('subject') || 'Website Contact'
+    ).trim();
+    const message = String(formData.get('message') || '').trim();
+
+    const website = String(formData.get('website') || '').trim();
+    const startedAt = Number(formData.get('form_started_at') || 0);
+    const turnstileToken = String(
+      formData.get('cf-turnstile-response') || ''
+    );
+
+    // Honeypot field: real users should never fill this in.
+    if (website) {
+      return Response.redirect('https://allmotiv.com?sent=ok', 302);
+    }
+
+    // Reject instant bot submissions.
+    if (!startedAt || Date.now() - startedAt < 3000) {
+      return Response.redirect('https://allmotiv.com?error=blocked', 302);
+    }
+
+    // Basic validation / size limits.
+    if (
+      !name ||
+      !email ||
+      !message ||
+      name.length > 120 ||
+      email.length > 254 ||
+      subject.length > 200 ||
+      message.length > 5000
+    ) {
       return Response.redirect('https://allmotiv.com?error=missing', 302);
     }
 
     const resendKey = env.RESEND_API_KEY;
-    if (!resendKey) {
+    const turnstileSecret = env.TURNSTILE_SECRET_KEY;
+
+    if (!resendKey || !turnstileSecret) {
       return Response.redirect('https://allmotiv.com?error=server', 302);
     }
 
-    // — Send notification to Derek —
+    if (!turnstileToken) {
+      return Response.redirect('https://allmotiv.com?error=verify', 302);
+    }
+
+    // Verify Cloudflare Turnstile server-side.
+    const verifyBody = new FormData();
+    verifyBody.append('secret', turnstileSecret);
+    verifyBody.append('response', turnstileToken);
+
+    const ip = request.headers.get('CF-Connecting-IP');
+    if (ip) {
+      verifyBody.append('remoteip', ip);
+    }
+
+    const verifyRes = await fetch(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      {
+        method: 'POST',
+        body: verifyBody,
+      }
+    );
+
+    const verify = await verifyRes
+      .json()
+      .catch(() => ({ success: false }));
+
+    if (!verify.success) {
+      return Response.redirect('https://allmotiv.com?error=verify', 302);
+    }
+
     const notifyBody = `
 New contact form submission from allmotiv.com
 
@@ -44,12 +114,12 @@ ${message}
     const notifyRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${resendKey}`,
+        Authorization: `Bearer ${resendKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         from: 'AllMotiv Contact <contact@allmotiv.com>',
-        to: 'derekwilliams1983@gmail.com',
+        to: 'derek@allmotiv.com',
         reply_to: email,
         subject: `[AllMotiv] ${subject}`,
         text: notifyBody,
@@ -60,41 +130,7 @@ ${message}
       return Response.redirect('https://allmotiv.com?error=send', 302);
     }
 
-    // — Send auto-reply to customer —
-    const autoBody = `
-Hi ${name},
-
-Thanks for reaching out through allmotiv.com!
-
-We've received your message and will get back to you as soon as possible. We typically respond within 1-2 business days.
-
-Here's a summary of what you sent:
----
-Subject: ${subject || '(none)'}
-${message}
----
-
-If you need immediate assistance, feel free to call us at (810) 640-5875.
-
-Best regards,
-Derek
-AllMotiv LLC
-    `.trim();
-
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${resendKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'AllMotiv Contact <contact@allmotiv.com>',
-        to: email,
-        subject: `Thanks for contacting AllMotiv, ${name}!`,
-        text: autoBody,
-      }),
-    }).catch(() => {}); // Don't fail if auto-reply has issues
-
+    // No automatic outbound reply.
     return Response.redirect('https://allmotiv.com?sent=ok', 302);
   },
 };
