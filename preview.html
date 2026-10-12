@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="https://raw.githubusercontent.com/derekwilliams1983/allmotiv/website-refresh-2026-10/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Repair & Diagnostics in Mt. Morris, MI | AllMotiv</title>
+    <meta name="description" content="AllMotiv provides automotive repair, electrical diagnostics, brakes, suspension and maintenance for Flint, Mt. Morris and Genesee County. Call (810) 640-5875.">
+    <link rel="canonical" href="https://allmotiv.com/">
+    <meta name="theme-color" content="#1B2A4A">
+    <meta property="og:title" content="AllMotiv | Auto Repair & Diagnostics">
+    <meta property="og:description" content="Local automotive repair and diagnostics serving Flint, Mt. Morris and Genesee County.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://allmotiv.com/">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"AllMotiv LLC","url":"https://allmotiv.com/","telephone":"+1-810-640-5875","email":"contact@allmotiv.com","address":{"@type":"PostalAddress","addressLocality":"Mt. Morris","addressRegion":"MI","addressCountry":"US"},"areaServed":["Mt. Morris","Flint","Genesee County"]}</script>
+
+
+
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --orange: #E8721A;
+            --light: #F8F6F2;
+            --gray: #6B7280;
+            --dark: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--dark);
+            background: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        nav {
+            background: var(--navy);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        nav .logo img {
+            height: 42px;
+            width: auto;
+        }
+
+        nav .logo-text {
+            color: white;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        nav .logo-text span {
+            color: var(--orange);
+        }
+
+        .mobile-menu { display: none; background: transparent; color: white; border: 1px solid #94a3b8; border-radius: 6px; padding: 9px 12px; font-size: 1rem; cursor: pointer; }
+        nav ul {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        nav a {
+            color: rgba(255,255,255,.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--orange);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #15203a 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+
+        .hero img {
+            height: 100px;
+            margin-bottom: 32px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 span {
+            color: var(--orange);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,.7);
+            max-width: 600px;
+            margin: 0 auto 36px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--orange);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,.3);
+            margin-left: 12px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--orange);
+        }
+
+        .btn:hover {
+            background: #d06210;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--navy);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 32px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.06);
+            text-align: center;
+        }
+
+        .card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+        }
+
+        .card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-grid h2 {
+            text-align: left;
+        }
+
+        .about-grid p {
+            color: var(--gray);
+            margin-bottom: 16px;
+        }
+
+        .contact {
+            background: var(--navy);
+            color: white;
+        }
+
+        .contact h2 {
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .contact-info p {
+            margin-bottom: 8px;
+            color: rgba(255,255,255,.7);
+        }
+
+        .contact-info strong {
+            color: white;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 6px;
+            margin-bottom: 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background: var(--orange);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #d06210;
+        }
+
+        .honeypot {
+            position: absolute !important;
+            left: -9999px !important;
+            width: 1px !important;
+            height: 1px !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        .turnstile-wrap {
+            margin: 4px 0 16px;
+        }
+
+        footer {
+            background: #0f172a;
+            color: rgba(255,255,255,.5);
+            text-align: center;
+            padding: 32px 0;
+            font-size: 0.85rem;
+        }
+
+        .success-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #059669;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            transform: translateY(-100%);
+            animation: slideDown 0.5s ease forwards;
+        }
+
+        .success-popup .sub {
+            font-weight: 400;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        .error-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #DC2626;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            z-index: 999;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            transform: translateY(-100%);
+            animation: slideDown 0.5s ease forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu { display: block; }
+            nav .container { flex-wrap: wrap; }
+            nav ul { display: none; width: 100%; flex-direction: column; gap: 0; padding: 12px 0; }
+            nav ul.open { display: flex; }
+            nav li a { display: block; padding: 12px 0; }
+            .btn-outline { margin: 12px 0 0; }
+            .hero { padding: 64px 0; }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<style>.preview-ribbon{position:relative;z-index:200;background:#fff3cd;color:#533f03;text-align:center;padding:12px;font-weight:700}.preview-ribbon a{color:#1B2A4A}</style>
+</head>
+
+<body>
+<div class="preview-ribbon">DESIGN PREVIEW — Not live. <a href="https://allmotiv.com/" target="_blank" rel="noopener">Compare current website ↗</a></div>
+
+<nav>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="AllMotiv">
+            <div class="logo-text">ALL<span>MOTIV</span></div>
+        </div>
+
+        <button class="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">☰ Menu</button>
+        <ul id="site-nav">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+
+        <img src="logo.png" alt="AllMotiv">
+
+        <h1>
+            Trusted <span>Auto Repair</span> & Diagnostics
+        </h1>
+
+        <p>
+            Professional automotive repair, electrical diagnostics, brakes and maintenance for Mt. Morris, Flint and Genesee County. Clear communication and careful workmanship.
+        </p>
+
+        <p style="margin-top:-20px; margin-bottom:36px; font-size:1.05rem; font-weight:600;">
+            <a
+                href="tel:+18106405875"
+                style="color:var(--orange); text-decoration:none;"
+            >
+                📞 (810) 640-5875
+            </a>
+
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+
+            <span style="color:rgba(255,255,255,.6); font-weight:400;">
+                FLINT, MI &bull; INSURED &bull; LLC
+            </span>
+        </p>
+
+        <a href="#contact" class="btn">Request Service</a>
+        <a href="tel:+18106405875" class="btn btn-outline">Call Now</a>
+
+    </div>
+</section>
+
+<section id="services">
+    <div class="container">
+
+        <h2>Automotive Services</h2>
+
+        <div class="grid-3">
+
+            <div class="card">
+                <div class="icon">🔧</div>
+                <h3>General Auto Repair</h3>
+                <p>
+                    Diagnostics, maintenance, and repair for light trucks
+                    and passenger vehicles. ASE Master-certified expertise.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">⚡</div>
+                <h3>Electrical Diagnostics</h3>
+                <p>
+                    Advanced electrical system troubleshooting, wiring repair,
+                    and module testing for modern vehicles and light trucks.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🛠️</div>
+                <h3>Brakes, Suspension & Maintenance</h3>
+                <p>
+                    Preventative maintenance, brake systems, suspension,
+                    engine repair, and all general automotive service.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+
+        <div class="about-grid">
+
+            <div>
+                <h2>Experienced, Detail-Oriented Repair</h2>
+
+                <p>
+                    At AllMotiv, we focus on understanding the problem before recommending repairs. ASE Master Technician expertise and a systematic diagnostic approach help us make informed repair decisions.
+                </p>
+
+                <p>
+                    Our Mt. Morris facility is equipped for full-service
+                    automotive repair and diagnostics, from routine maintenance
+                    to complex electrical troubleshooting.
+                </p>
+
+                <p style="margin-top:24px;">
+                    <strong>We serve:</strong>
+                    Passenger vehicles, light trucks, fleet vehicles, and
+                    commercial equipment in the Flint and Genesee County area.
+                </p>
+            </div>
+
+            <div
+                style="
+                    background:white;
+                    border-radius:10px;
+                    padding:32px;
+                    box-shadow:0 2px 8px rgba(0,0,0,.06);
+                "
+            >
+
+                <h3 style="color:var(--navy); margin-bottom:16px;">
+                    Why AllMotiv
+                </h3>
+
+                <ul
+                    style="
+                        list-style:none;
+                        color:var(--gray);
+                        font-size:0.9rem;
+                        line-height:2;
+                    "
+                >
+                    <li>✅ ASE Master Technician expertise</li>
+                    <li>✅ Advanced diagnostic equipment</li>
+                    <li>✅ Documented quality processes</li>
+                    <li>✅ Clear, straightforward communication</li>
+                    <li>✅ Fleet & commercial experience</li>
+                    <li>✅ Flint & Genesee County local</li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact">
+
+    <div class="container">
+
+        <h2>Contact AllMotiv</h2>
+
+        <div class="contact-grid">
+
+            <div class="contact-info">
+
+                <p><strong>AllMotiv LLC</strong></p>
+                <p>Mt. Morris, Michigan — contact us for drop-off arrangements</p>
+
+                <p style="margin-top:20px;">
+                    <strong>Email:</strong> contact@allmotiv.com
+                </p>
+
+                <p>
+                    <strong>Phone:</strong> (810) 640-5875
+                </p>
+
+                <p style="margin-top:20px; font-size:0.9rem;">
+                    Registered in Michigan. Quality-managed. Engineering-backed.
+                </p>
+
+            </div>
+
+            <form
+                onsubmit="event.preventDefault();alert('Preview only — no request was sent.');"
+                class="contact-form"
+                action="#contact"
+                method="POST"
+            >
+
+                <label for="customer-name" style="display:block;margin-bottom:5px">Your name</label>
+                <input id="customer-name"
+                    type="text"
+                    name="name"
+                    placeholder="Your Name"
+                    maxlength="120"
+                    required
+                >
+
+                <label for="customer-phone" style="display:block;margin-bottom:5px">Callback phone number</label>
+                <input id="customer-phone" type="tel" name="phone" placeholder="(810) 555-1234" maxlength="30" required autocomplete="tel">
+                <label for="customer-vehicle" style="display:block;margin-bottom:5px">Vehicle year, make and model</label>
+                <input id="customer-vehicle" type="text" name="vehicle" placeholder="e.g. 2015 Ford Fusion" maxlength="150" required>
+                <label for="customer-mileage" style="display:block;margin-bottom:5px">Approximate mileage (optional)</label>
+                <input id="customer-mileage" type="text" name="mileage" placeholder="e.g. 125,000" maxlength="30">
+                <label for="customer-availability" style="display:block;margin-bottom:5px">Preferred availability (optional)</label>
+                <input id="customer-availability" type="text" name="availability" placeholder="e.g. Weekday mornings" maxlength="150">
+                <label for="customer-email" style="display:block;margin-bottom:5px">Email address</label>
+                <input id="customer-email"
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    maxlength="254"
+                    required
+                >
+
+
+                <label for="customer-message" style="display:block;margin-bottom:5px">What is happening with your vehicle?</label>
+                <textarea id="customer-message"
+                    name="message"
+                    placeholder="Describe symptoms, warning lights, or requested repairs..."
+                    maxlength="5000"
+                    required
+                ></textarea>
+
+                <!-- Bot honeypot -->
+                <input
+                    class="honeypot"
+                    type="text"
+                    name="website"
+                    tabindex="-1"
+                    autocomplete="off"
+                    aria-hidden="true"
+                >
+
+                <!-- Used to reject instant automated submissions -->
+                <input
+                    type="hidden"
+                    name="form_started_at"
+                    id="form_started_at"
+                >
+
+                <div class="turnstile-wrap" style="display:none">
+                    <div
+                        class="cf-turnstile"
+                        data-sitekey="0x4AAAAAAED-2kSqDWuLrJ3e"
+                    ></div>
+                </div>
+
+                <p style="font-size:.82rem;margin-bottom:12px;color:#cbd5e1">Submitting this form requests a follow-up; it does not confirm an appointment.</p>
+                <button type="submit">
+                    Request Follow-Up
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+<div id="popup"></div>
+
+<script>
+    const menuButton = document.querySelector('.mobile-menu');
+    const menu = document.getElementById('site-nav');
+    menuButton.addEventListener('click', () => {
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open', !expanded);
+    });
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+    // Record when the form page was loaded.
+    document.getElementById('form_started_at').value = Date.now();
+
+    const params = new URLSearchParams(window.location.search);
+    const popup = document.getElementById('popup');
+
+    function showBanner(type, msg, sub) {
+        const cls =
+            type === 'ok'
+                ? 'success-popup'
+                : 'error-popup';
+
+        popup.innerHTML =
+            `<div class="${cls}">
+                ${msg}
+                ${sub ? `<div class="sub">${sub}</div>` : ''}
+            </div>`;
+
+        history.replaceState({}, '', '/');
+
+        setTimeout(() => {
+            const el = document.querySelector(
+                '.success-popup, .error-popup'
+            );
+
+            if (el) {
+                el.style.transform = 'translateY(-100%)';
+            }
+        }, 6000);
+    }
+
+    if (params.get('sent') === 'ok') {
+        showBanner(
+            'ok',
+            '✓ Message sent!',
+            'We’ll get back to you soon.'
+        );
+    }
+
+    if (params.get('error')) {
+
+        const msgs = {
+            missing:
+                'Please fill in all required fields.',
+
+            server:
+                'Server error — please try again later.',
+
+            send:
+                'Message failed to send. Please email us directly at contact@allmotiv.com',
+
+            verify:
+                'Please complete the security verification and try again.',
+
+            blocked:
+                'Submission blocked. Please refresh the page and try again.'
+        };
+
+        showBanner(
+            'error',
+            '✗ ' +
+            (
+                msgs[params.get('error')] ||
+                'Something went wrong.'
+            )
+        );
+    }
+</script>
+
+<footer>
+    <div class="container">
+        <p>
+            &copy; 2026 AllMotiv LLC. All rights reserved. |
+            Flint, Michigan
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
