@@ -34,6 +34,10 @@ export default {
     ).trim();
     const message = String(formData.get('message') || '').trim();
 
+    const phone = String(formData.get('phone') || '').trim();
+    const vehicle = String(formData.get('vehicle') || '').trim();
+    const mileage = String(formData.get('mileage') || '').trim();
+    const availability = String(formData.get('availability') || '').trim();
     const website = String(formData.get('website') || '').trim();
     const startedAt = Number(formData.get('form_started_at') || 0);
     const turnstileToken = String(
@@ -55,6 +59,9 @@ export default {
       !name ||
       !email ||
       !message ||
+      !phone || !vehicle ||
+      phone.length > 30 || vehicle.length > 150 ||
+      mileage.length > 30 || availability.length > 150 ||
       name.length > 120 ||
       email.length > 254 ||
       subject.length > 200 ||
@@ -105,6 +112,10 @@ New contact form submission from allmotiv.com
 
 Name:    ${name}
 Email:   ${email}
+Phone:   ${phone}
+Vehicle: ${vehicle}
+Mileage: ${mileage || '(not supplied)'}
+Preferred availability: ${availability || '(not supplied)'}
 Subject: ${subject || '(none)'}
 
 Message:
