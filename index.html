@@ -628,6 +628,22 @@
       menu.classList.remove('open');
       menuButton.setAttribute('aria-expanded', 'false');
     }));
+    // Include vehicle details in the message for compatibility with the existing
+    // production Cloudflare Worker, which currently emails only the message field.
+    const intakeForm = document.querySelector('.contact-form');
+    intakeForm.addEventListener('submit', () => {
+      const message = intakeForm.elements.namedItem('message');
+      if (message.dataset.intakePrepared === 'true') return;
+      const field = name => intakeForm.elements.namedItem(name).value.trim();
+      const details = [
+        'Callback phone: ' + field('phone'),
+        'Vehicle: ' + field('vehicle'),
+        'Mileage: ' + (field('mileage') || 'Not provided'),
+        'Preferred availability: ' + (field('availability') || 'Not provided')
+      ].join('\n');
+      message.value = details + '\n\nCustomer concern:\n' + message.value;
+      message.dataset.intakePrepared = 'true';
+    });
     // Record when the form page was loaded.
     document.getElementById('form_started_at').value = Date.now();
 
