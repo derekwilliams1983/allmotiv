@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AllMotiv LLC — Precision Automotive & Machining</title>
+    <title>Auto Repair & Diagnostics in Mt. Morris, MI | AllMotiv</title>
+    <meta name="description" content="AllMotiv provides automotive repair, electrical diagnostics, brakes, suspension and maintenance for Flint, Mt. Morris and Genesee County. Call (810) 640-5875.">
+    <link rel="canonical" href="https://allmotiv.com/">
+    <meta name="theme-color" content="#1B2A4A">
+    <meta property="og:title" content="AllMotiv | Auto Repair & Diagnostics">
+    <meta property="og:description" content="Local automotive repair and diagnostics serving Flint, Mt. Morris and Genesee County.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://allmotiv.com/">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"AllMotiv LLC","url":"https://allmotiv.com/","telephone":"+1-810-640-5875","email":"contact@allmotiv.com","address":{"@type":"PostalAddress","addressLocality":"Mt. Morris","addressRegion":"MI","addressCountry":"US"},"areaServed":["Mt. Morris","Flint","Genesee County"]}</script>
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
@@ -71,6 +79,7 @@
             color: var(--orange);
         }
 
+        .mobile-menu { display: none; background: transparent; color: white; border: 1px solid #94a3b8; border-radius: 6px; padding: 9px 12px; font-size: 1rem; cursor: pointer; }
         nav ul {
             display: flex;
             gap: 28px;
@@ -325,9 +334,13 @@
         }
 
         @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
+            .mobile-menu { display: block; }
+            nav .container { flex-wrap: wrap; }
+            nav ul { display: none; width: 100%; flex-direction: column; gap: 0; padding: 12px 0; }
+            nav ul.open { display: flex; }
+            nav li a { display: block; padding: 12px 0; }
+            .btn-outline { margin: 12px 0 0; }
+            .hero { padding: 64px 0; }
 
             .hero h1 {
                 font-size: 2rem;
@@ -357,7 +370,8 @@
             <div class="logo-text">ALL<span>MOTIV</span></div>
         </div>
 
-        <ul>
+        <button class="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav">☰ Menu</button>
+        <ul id="site-nav">
             <li><a href="#services">Services</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -371,13 +385,11 @@
         <img src="logo.png" alt="AllMotiv">
 
         <h1>
-            Precision <span>Automotive</span> Repair & Diagnostics
+            Trusted <span>Auto Repair</span> & Diagnostics
         </h1>
 
         <p>
-            Serving Flint and Genesee County with advanced diagnostics,
-            electrical repair, and maintenance — backed by engineering-grade
-            quality systems.
+            Professional automotive repair, electrical diagnostics, brakes and maintenance for Mt. Morris, Flint and Genesee County. Clear communication and careful workmanship.
         </p>
 
         <p style="margin-top:-20px; margin-bottom:36px; font-size:1.05rem; font-weight:600;">
@@ -395,7 +407,7 @@
             </span>
         </p>
 
-        <a href="#contact" class="btn">Get a Quote</a>
+        <a href="#contact" class="btn">Request Service</a>
         <a href="tel:+18106405875" class="btn btn-outline">Call Now</a>
 
     </div>
@@ -410,7 +422,7 @@
 
             <div class="card">
                 <div class="icon">🔧</div>
-                <h3>Automotive Repair</h3>
+                <h3>General Auto Repair</h3>
                 <p>
                     Diagnostics, maintenance, and repair for light trucks
                     and passenger vehicles. ASE Master-certified expertise.
@@ -428,7 +440,7 @@
 
             <div class="card">
                 <div class="icon">🛠️</div>
-                <h3>Maintenance & Repair</h3>
+                <h3>Brakes, Suspension & Maintenance</h3>
                 <p>
                     Preventative maintenance, brake systems, suspension,
                     engine repair, and all general automotive service.
@@ -445,13 +457,10 @@
         <div class="about-grid">
 
             <div>
-                <h2>Built on Engineering</h2>
+                <h2>Experienced, Detail-Oriented Repair</h2>
 
                 <p>
-                    AllMotiv brings an engineering mindset to every repair.
-                    Every job is backed by documented quality systems,
-                    systematic diagnostics, and real technical experience —
-                    not guesswork.
+                    At AllMotiv, we focus on understanding the problem before recommending repairs. ASE Master Technician expertise and a systematic diagnostic approach help us make informed repair decisions.
                 </p>
 
                 <p>
@@ -488,10 +497,10 @@
                         line-height:2;
                     "
                 >
-                    <li>✅ ASE-certified technicians</li>
+                    <li>✅ ASE Master Technician expertise</li>
                     <li>✅ Advanced diagnostic equipment</li>
                     <li>✅ Documented quality processes</li>
-                    <li>✅ Engineering-backed approach</li>
+                    <li>✅ Clear, straightforward communication</li>
                     <li>✅ Fleet & commercial experience</li>
                     <li>✅ Flint & Genesee County local</li>
                 </ul>
@@ -513,7 +522,7 @@
             <div class="contact-info">
 
                 <p><strong>AllMotiv LLC</strong></p>
-                <p>Mt. Morris, Michigan</p>
+                <p>Mt. Morris, Michigan — contact us for drop-off arrangements</p>
 
                 <p style="margin-top:20px;">
                     <strong>Email:</strong> contact@allmotiv.com
@@ -535,7 +544,8 @@
                 method="POST"
             >
 
-                <input
+                <label for="customer-name" style="display:block;margin-bottom:5px">Your name</label>
+                <input id="customer-name"
                     type="text"
                     name="name"
                     placeholder="Your Name"
@@ -543,7 +553,16 @@
                     required
                 >
 
-                <input
+                <label for="customer-phone" style="display:block;margin-bottom:5px">Callback phone number</label>
+                <input id="customer-phone" type="tel" name="phone" placeholder="(810) 555-1234" maxlength="30" required autocomplete="tel">
+                <label for="customer-vehicle" style="display:block;margin-bottom:5px">Vehicle year, make and model</label>
+                <input id="customer-vehicle" type="text" name="vehicle" placeholder="e.g. 2015 Ford Fusion" maxlength="150" required>
+                <label for="customer-mileage" style="display:block;margin-bottom:5px">Approximate mileage (optional)</label>
+                <input id="customer-mileage" type="text" name="mileage" placeholder="e.g. 125,000" maxlength="30">
+                <label for="customer-availability" style="display:block;margin-bottom:5px">Preferred availability (optional)</label>
+                <input id="customer-availability" type="text" name="availability" placeholder="e.g. Weekday mornings" maxlength="150">
+                <label for="customer-email" style="display:block;margin-bottom:5px">Email address</label>
+                <input id="customer-email"
                     type="email"
                     name="email"
                     placeholder="Email Address"
@@ -551,16 +570,11 @@
                     required
                 >
 
-                <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    maxlength="200"
-                >
 
-                <textarea
+                <label for="customer-message" style="display:block;margin-bottom:5px">What is happening with your vehicle?</label>
+                <textarea id="customer-message"
                     name="message"
-                    placeholder="Tell us about your project..."
+                    placeholder="Describe symptoms, warning lights, or requested repairs..."
                     maxlength="5000"
                     required
                 ></textarea>
@@ -589,8 +603,9 @@
                     ></div>
                 </div>
 
+                <p style="font-size:.82rem;margin-bottom:12px;color:#cbd5e1">Submitting this form requests a follow-up; it does not confirm an appointment.</p>
                 <button type="submit">
-                    Send Message
+                    Request Follow-Up
                 </button>
 
             </form>
@@ -602,6 +617,33 @@
 <div id="popup"></div>
 
 <script>
+    const menuButton = document.querySelector('.mobile-menu');
+    const menu = document.getElementById('site-nav');
+    menuButton.addEventListener('click', () => {
+      const expanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!expanded));
+      menu.classList.toggle('open', !expanded);
+    });
+    menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+    // Include vehicle details in the message for compatibility with the existing
+    // production Cloudflare Worker, which currently emails only the message field.
+    const intakeForm = document.querySelector('.contact-form');
+    intakeForm.addEventListener('submit', () => {
+      const message = intakeForm.elements.namedItem('message');
+      if (message.dataset.intakePrepared === 'true') return;
+      const field = name => intakeForm.elements.namedItem(name).value.trim();
+      const details = [
+        'Callback phone: ' + field('phone'),
+        'Vehicle: ' + field('vehicle'),
+        'Mileage: ' + (field('mileage') || 'Not provided'),
+        'Preferred availability: ' + (field('availability') || 'Not provided')
+      ].join('\n');
+      message.value = details + '\n\nCustomer concern:\n' + message.value;
+      message.dataset.intakePrepared = 'true';
+    });
     // Record when the form page was loaded.
     document.getElementById('form_started_at').value = Date.now();
 
